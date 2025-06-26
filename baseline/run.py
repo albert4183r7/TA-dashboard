@@ -58,7 +58,6 @@ while True:
 
     batch_data = json.loads(data.decode())
     log_data(LOG_RECEIVED_PATH, {json.dumps(batch_data)})
-    print("received:", batch_data)
     
     responses = {}
     
@@ -80,7 +79,6 @@ while True:
     conn.sendall(response_data)
     formatted_response = json.dumps(responses)
     log_data(LOG_SENT_PATH, {formatted_response})
-    print("sent:", formatted_response)
 
 conn.close()
 server.close()

@@ -38,7 +38,7 @@ from datetime import datetime
 
 # FILE AND OUTPUT CONFIGURATION
 FCD_FILE = "fcd-input.xml"  # Path to your FCD XML file
-OUTPUT_FILENAME = None  # Set to None for automatic naming, or specify custom name like "my_results.xlsx"
+OUTPUT_FILENAME = "output_simulasi.xlsx"  # Set to None for automatic naming, or specify custom name like "my_results.xlsx"
 
 # REAL-TIME OUTPUT CONFIGURATION
 ENABLE_REALTIME_CSV = True  # Enable CSV output per timestamp

@@ -1,4 +1,0 @@
-file_fcd: fcd-input.xml
-enable_rl: False
-algoritma: SAC
-mode: Training

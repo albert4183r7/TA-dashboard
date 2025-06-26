@@ -1,5 +1,0 @@
-file_fcd: fcd-output-1.xml
-traffic_profile: highway_los
-enable_rl: True
-algoritma: SAC
-mode: Training
