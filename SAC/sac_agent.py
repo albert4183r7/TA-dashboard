@@ -25,7 +25,7 @@ class ReplayBuffer:
         return states, actions, rewards, next_states, dones
 
 class SoftQNetwork(nn.Module):
-    def __init__(self, state_dim, action_dim, hidden_dim=256):
+    def __init__(self, state_dim, action_dim, hidden_dim=64):
         super(SoftQNetwork, self).__init__()
         self.fc1 = nn.Linear(state_dim + action_dim, hidden_dim)
         self.fc2 = nn.Linear(hidden_dim, hidden_dim)
@@ -38,7 +38,7 @@ class SoftQNetwork(nn.Module):
         return self.fc3(x)
 
 class PolicyNetwork(nn.Module):
-    def __init__(self, state_dim, action_dim, hidden_dim=256, log_std_min=-20, log_std_max=2):
+    def __init__(self, state_dim, action_dim, hidden_dim=64, log_std_min=-20, log_std_max=2):
         super(PolicyNetwork, self).__init__()
         self.fc1 = nn.Linear(state_dim, hidden_dim)
         self.fc2 = nn.Linear(hidden_dim, hidden_dim)
@@ -84,7 +84,7 @@ class SACAgent:
         self.target_entropy = -action_dim if target_entropy is None else target_entropy
         self.log_alpha = torch.zeros(1, requires_grad=True, device=self.device)
         self.alpha_optimizer = optim.Adam([self.log_alpha], lr=lr)
-        self.replay_buffer = ReplayBuffer(buffer_size=100000, batch_size=256)
+        self.replay_buffer = ReplayBuffer(buffer_size=100000, batch_size=128)
         self.policy_loss = 0
         self.q1_loss = 0
         self.q2_loss = 0

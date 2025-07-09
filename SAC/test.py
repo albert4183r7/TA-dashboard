@@ -7,7 +7,7 @@ import csv
 import struct
 import torch.serialization
 from datetime import datetime
-from SAC.sac_agent import SACAgent
+from SAC.sac_agent_vehicle import SACAgent
 
 LOG_RECEIVED_PATH = 'SAC/logs/testing/receive_data.log'
 LOG_DEBUG_ACTION_PATH = 'SAC/logs/testing/action.log'
@@ -61,9 +61,9 @@ action_dim = 2
 agent = SACAgent(state_dim, action_dim)
 
 def load_model(agent, filename):
-    """Load a trained SAC model from a checkpoint file."""
+    """Load a trained SAC model from model folder."""
     try:
-        torch.serialization.add_safe_globals([SACAgent])  # Allowlist SACAgent for security
+        # torch.serialization.add_safe_globals([SACAgent])  # Allowlist SACAgent for security
         checkpoint = torch.load(filename, map_location=agent.device, weights_only=False)
         
         # Handle dictionary-based checkpoint
@@ -157,8 +157,8 @@ while True:
         action = agent.select_action(state)
 
         # normalized actions
-        new_power = (action[0] + 1) / 2 * (30 - 1) + 1
-        new_beacon = (action[1] + 1) / 2 * (20 - 1) + 1
+        new_power = (action[0] + 1) / 2 * (30 - 10) + 10
+        new_beacon = (action[1] + 1) / 2 * (20 - 10) + 10
         
         action_float = tuple(map(float, [new_power, new_beacon]))
         log_data(LOG_DEBUG_ACTION_PATH, {json.dumps(action_float, indent=4)})

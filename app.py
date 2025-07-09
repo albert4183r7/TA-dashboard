@@ -88,7 +88,11 @@ if current_tab == "Home":
                         else:
                             subprocess.run(["python", "-m", "SAC.train"])
                     else:
-                        st.warning("Mode Testing belum diimplementasikan.")
+                        st.info(f"Menjalankan {algoritma} - Mode Testing...")
+                        if algoritma == "Q-learning":
+                            subprocess.run(["python", "-m", "Q-learning.test"])
+                        else:
+                            subprocess.run(["python", "-m", "SAC.test"])
                 else:
                     st.info("Menjalankan baseline...")
                     subprocess.run(["python", "-m", "baseline.run"])
@@ -179,13 +183,15 @@ elif current_tab == "History":
 
                 # Plot Latency
                 df_dr = pd.read_excel(excel_path, sheet_name="Detailed_Results")
-                df_latency = df_dr.groupby('Timestamp')['Latency'].mean()
+                df_latency_filtered = df_dr[df_dr['Latency'] != 1000]
+                df_latency = df_latency_filtered.groupby('Timestamp')['Latency'].mean()
                 fig3, ax3 = plt.subplots()
                 df_latency.plot(ax=ax3, title="Rata-rata Latency per Timestamp", xlabel="Waktu", ylabel="Latency (ms)")
                 st.pyplot(fig3)
 
                 # Plot PDR (dikalikan dengan 100 untuk persentase)
-                df_pdr = df_dr.groupby('Timestamp')['PDR'].mean() * 100
+                df_pdr_filtered = df_dr[df_dr['PDR'] >= 0.1]
+                df_pdr = df_pdr_filtered.groupby('Timestamp')['PDR'].mean() * 100
                 fig4, ax4 = plt.subplots()
                 df_pdr.plot(ax=ax4, title="Rata-rata PDR per Timestamp", xlabel="Waktu", ylabel="PDR (%)")
                 st.pyplot(fig4)

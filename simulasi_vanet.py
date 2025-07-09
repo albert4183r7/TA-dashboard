@@ -1123,7 +1123,7 @@ class VANET_IEEE80211bd_Simulator:
         
         try:
             # Parameters for batch processing
-            max_vehicles_per_message = 20
+            max_vehicles_per_message = 44
             vehicle_ids = list(vehicle_data.keys())
             num_messages = math.ceil(len(vehicle_ids) / max_vehicles_per_message)
             
@@ -1171,7 +1171,7 @@ class VANET_IEEE80211bd_Simulator:
                     # Receive response
                     start_time = time.time()
                     response_length_bytes = b''
-                    while len(response_length_bytes) < 4 and (time.time() - start_time) < 10:
+                    while len(response_length_bytes) < 4 and (time.time() - start_time) < 2000:
                         try:
                             chunk = self.rl_client.recv(4 - len(response_length_bytes))
                             if chunk:
@@ -1188,7 +1188,7 @@ class VANET_IEEE80211bd_Simulator:
                     response_length = int.from_bytes(response_length_bytes, byteorder='little')
                     
                     response_data = b''
-                    while len(response_data) < response_length and (time.time() - start_time) < 10:
+                    while len(response_data) < response_length and (time.time() - start_time) < 2000:
                         try:
                             remaining = response_length - len(response_data)
                             chunk = self.rl_client.recv(min(remaining, 8192))
