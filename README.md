@@ -1,5 +1,5 @@
 # 🚗 Reinforcement Learning-Based Optimization of Beacon Rate and Transmission Power for V2V Communication
-This project aims to optimize beacon rate , transmission power (tx_power) , and MCS (Modulation and Coding Scheme) in Vehicle-to-Vehicle (V2V) communication using Reinforcement Learning (RL) techniques: Q-learning and Soft Actor-Critic (SAC) . The goal is to maintain the Channel Busy Ratio (CBR) and SINR (Signal to Interference plus Noise Ratio) within target ranges:
+This project aims to optimize beacon rate and transmission power in Vehicle-to-Vehicle (V2V) communication using Reinforcement Learning (RL) techniques: Q-learning and Soft Actor-Critic (SAC). The goal is to maintain the Channel Busy Ratio (CBR) and SINR (Signal to Interference plus Noise Ratio) within target ranges:
 CBR : 0.6 - 0.7
 SINR : 15 dB - 20 dB
 
