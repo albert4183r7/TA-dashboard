@@ -4,6 +4,7 @@ CBR : 0.6 - 0.7
 SINR : 15 dB - 20 dB
 
 ## 📁 Project Structure
+```
 .
 ├── baseline/
 │   └── logs/                  # Baseline simulation logs
@@ -25,6 +26,7 @@ SINR : 15 dB - 20 dB
 ├── plot.py                    # Plotting script for results
 ├── requirements.txt           # Python dependencies
 └── README.md                  # This documentation
+```
 
 ## 🧰 Requirements
 Install required packages:
@@ -57,7 +59,7 @@ streamlit run app.py
 
 ## 📊 Dashboard & History
 - The History section displays previous simulations.
-- Interactive charts are available to analyze simulation performance.
+- Charts are available to analyze simulation performance.
 
 ## 🔌 Socket Server Connection
 - Make sure the socket server is running at localhost:5000.
@@ -67,16 +69,12 @@ streamlit run app.py
 1. Q-learning
 - Tabular reinforcement learning approach.
 - Suitable for small state-action spaces.
-- Optimizes beacon rate and tx_power.
-2. Soft Actor-Critic (SAC)
+1. Soft Actor-Critic (SAC)
 - Off-policy deep reinforcement learning algorithm.
 - Enables generalization across mobility scenarios.
-- Handles batch input from 44 vehicles simultaneously.
 
 ## 📈 Result Visualization
-Dynamic plots displayed on dashboard:
-- CBR and SINR over time
-- Trends of beacon rate, transmission power, and MCS
+Dynamic plots displayed on dashboard: CBR, SINR, Latency, PDR over time
 
 
 ## ✅ Notes
