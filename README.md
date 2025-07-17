@@ -29,7 +29,7 @@ This project aims to optimize beacon rate and transmission power in Vehicle-to-V
 ```
 
 ## 📥 External Dependency: Mobility Simulation Script
-The file simulasi_vanet.py is sourced from an external GitHub repository:
+The file simulasi_vanet.py is sourced from an external GitHub repository:<br>
 👉 https://github.com/galihnnk/CANVAS-VANET
 
 ### Clone That Repository:
