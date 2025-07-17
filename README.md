@@ -78,19 +78,18 @@ streamlit run app.py
 
 ## 📊 Dashboard & History
 - Home Tab: Upload file and start simulation.
-- The History section displays previous simulations.
-- Charts (CBR, SINR, Latency, PDR over time) are displayed to analyze simulation performance.
+- The History section displays previous simulations configuration and charts (CBR, SINR, Latency, PDR).
 
 ## 🔌 Socket Server Connection
 - This project communicates with an external socket server running at localhost:5000.
 - Make sure the socket server is running before starting simulations.
 - If running on a different host or port, update the scripts inside:
-- ```bash simulasi_vanet.py```
-- ```bash Q-learning/train.py``` and ```bash test.py```
-- ```bash SAC/train.py``` and ```bash test.py```
+- ```simulasi_vanet.py```
+- ```Q-learning/train.py``` and ```test.py```
+- ```SAC/train.py``` and ```test.py```
 
 ## ✅ Notes
-- Ensure the socket server is running at localhost:5000 or adjust the IP as needed.
+- Ensure the socket server is running at ```localhost:5000``` or adjust the IP as needed.
 - Use valid SUMO-formatted FCD data.
 - Simulation outputs can be exported and further analyzed.
 
@@ -105,9 +104,9 @@ Make sure no firewall or port conflict exists. Confirm the server is running.
 Adjust cwd parameter when calling subprocess.run() in app.py if file locations differ.
 
 ## 👨‍💻 Author & Contact
-Developed as part of academic research on vehicular communication systems.
-For inquiries, suggestions, or collaboration:
-Name: Albert
-Email: albertlie8338@gmail.com
-GitHub: github.com/albert4183r7
-Institution: Bandung Institute of Technologu
+- Developed as part of academic research on vehicular communication systems.
+- For inquiries, suggestions, or collaboration:
+   - Name: Albert
+   - Email: albertlie8338@gmail.com
+   - GitHub: github.com/albert4183r7
+   - Institution: Bandung Institute of Technologu
