@@ -4,8 +4,8 @@ import json
 import struct
 from datetime import datetime
 
-LOG_RECEIVED_PATH = 'baseline/receive_data.log'
-LOG_SENT_PATH = 'baseline/sent_data.log'
+LOG_RECEIVED_PATH = 'baseline/logs/receive_data.log'
+LOG_SENT_PATH = 'baseline/logs/sent_data.log'
 
 def log_data(log_path, data):
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')

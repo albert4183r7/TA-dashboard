@@ -1,5 +1,0 @@
-file_fcd: fcd-output-250m-45-vehicle-500second.xml
-enable_rl: True
-algoritma: SAC
-mode: Testing
-train-per-vehicle

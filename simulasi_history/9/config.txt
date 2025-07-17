@@ -1,7 +1,0 @@
-file_fcd: fcd-output-250m-45-vehicle-500second.xml
-enable_rl: True
-algoritma: SAC
-mode: Training
-train.py 
-beacon 15-25
-tx power 10-30

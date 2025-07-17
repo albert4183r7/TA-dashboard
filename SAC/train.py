@@ -44,35 +44,16 @@ def write_record_loss(timestamp, actor_loss, critic1_loss, critic2_loss, alpha_l
         writer.writerow([timestamp, actor_loss, critic1_loss, critic2_loss, alpha_loss])
 
 def adjust_mcs_based_on_snr(snr):
-    if 0 <= snr < 5:
-        return 0
-    elif 5 <= snr < 10:
-        return 1
-    elif 10 <= snr < 15:
-        return 2
-    elif 15 <= snr < 20:
-        return 3
-    elif 20 <= snr < 25:
-        return 4
-    elif 25 <= snr < 30:
-        return 5
-    elif 30 <= snr < 35:
-        return 6
-    elif 35 <= snr < 40:
-        return 7
-    elif 40 <= snr < 45:
-        return 8
-    elif 45 <= snr < 50:
-        return 9
-    elif snr >= 50:
-        return 10
-    else:
-        return 0
+    thresholds = range(5, 60, 5)  # [5, 10, 15, ..., 55]
+    for mcs, threshold in enumerate(thresholds):
+        if snr < threshold:
+            return mcs
+    return 0
 
 def calculation_reward(cbr, sinr):
     # Target values and normalization
     cbr_target = 0.65
-    sinr_target = 17.5
+    sinr_target = 12.5
     
     # Gaussian rewards with adaptive widths
     cbr_reward = np.exp(-10 * (cbr - cbr_target)**2)
@@ -128,8 +109,8 @@ while True:
     log_data(LOG_RECEIVED_PATH, json.dumps(batch_data))
 
     for veh_id, vehicle_data in batch_data.items():
-        current_power = max(min(vehicle_data['transmissionPower'], 30.0), 1.0)
-        current_beacon = max(min(vehicle_data['beaconRate'], 25.0), 1.0)
+        current_power = max(min(vehicle_data['transmissionPower'], 33.0), 20.0)
+        current_beacon = max(min(vehicle_data['beaconRate'], 20.0), 10.0)
         cbr = max(min(vehicle_data['CBR'], 1.0), 0.0)
         snr = max(min(vehicle_data['SINR'], 50.0), 1.0)
         mcs = max(min(vehicle_data['MCS'], 10), 0)
@@ -181,8 +162,8 @@ while True:
         action = agent.select_action(prev_states[veh_id])
 
         # Denormalisasi aksi
-        new_power = (action[0] + 1) / 2 * (30 - 10) + 10
-        new_beacon = (action[1] + 1) / 2 * (25 - 15) + 15
+        new_power = (action[0] + 1) / 2 * (33 - 20) + 20
+        new_beacon = (action[1] + 1) / 2 * (20 - 10) + 10
 
         prev_actions[veh_id] = [new_power, new_beacon]
         action_float = tuple(map(float, [new_power, new_beacon]))

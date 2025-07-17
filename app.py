@@ -174,26 +174,27 @@ elif current_tab == "History":
                 df_ts = pd.read_excel(excel_path, sheet_name="Time_Series_Analysis").set_index('Timestamp')
                 fig1, ax1 = plt.subplots()
                 df_ts['CBR_mean'].plot(ax=ax1, title="CBR Mean per Timestamp", xlabel="Waktu", ylabel="CBR")
+                ax1.set_ylim(0, 1)  # Set range CBR 0–1
                 st.pyplot(fig1)
 
                 # Plot SINR
                 fig2, ax2 = plt.subplots()
-                df_ts['SINR_mean'].plot(ax=ax2, title="SINR Mean per Timestamp", xlabel="Waktu", ylabel="SINR")
+                df_ts['SINR_mean'].plot(ax=ax2, title="SINR Mean per Timestamp", xlabel="Waktu", ylabel="SINR (dB)")
+                ax2.set_ylim(0, 25)  # Set range SINR 0–25
                 st.pyplot(fig2)
 
                 # Plot Latency
-                df_dr = pd.read_excel(excel_path, sheet_name="Detailed_Results")
-                df_latency_filtered = df_dr[df_dr['Latency'] != 1000]
-                df_latency = df_latency_filtered.groupby('Timestamp')['Latency'].mean()
+                df_cbr = pd.read_excel(excel_path, sheet_name="CBR_Impact_Analysis")
+
                 fig3, ax3 = plt.subplots()
-                df_latency.plot(ax=ax3, title="Rata-rata Latency per Timestamp", xlabel="Waktu", ylabel="Latency (ms)")
+                df_cbr.plot(x='CBRGroup', y='Latency_mean', ax=ax3, marker='o',
+                            title="Rata-rata Latency per CBR Group", xlabel="CBR Group", ylabel="Latency (ms)")
                 st.pyplot(fig3)
 
-                # Plot PDR (dikalikan dengan 100 untuk persentase)
-                df_pdr_filtered = df_dr[df_dr['PDR'] >= 0.1]
-                df_pdr = df_pdr_filtered.groupby('Timestamp')['PDR'].mean() * 100
+                # Plot PDR
                 fig4, ax4 = plt.subplots()
-                df_pdr.plot(ax=ax4, title="Rata-rata PDR per Timestamp", xlabel="Waktu", ylabel="PDR (%)")
+                df_cbr.plot(x='CBRGroup', y='PDR_mean', ax=ax4, marker='o',
+                            title="Rata-rata PDR per CBR Group", xlabel="CBR Group", ylabel="PDR (%)")
                 st.pyplot(fig4)
 
             except Exception as e:

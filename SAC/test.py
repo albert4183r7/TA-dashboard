@@ -7,7 +7,7 @@ import csv
 import struct
 import torch.serialization
 from datetime import datetime
-from SAC.sac_agent_vehicle import SACAgent
+from SAC.sac_agent import SACAgent
 
 LOG_RECEIVED_PATH = 'SAC/logs/testing/receive_data.log'
 LOG_DEBUG_ACTION_PATH = 'SAC/logs/testing/action.log'
@@ -28,30 +28,12 @@ def write_performance_metrics(timestamp, veh_id, cbr, snr, file_path=PERFORMANCE
         writer.writerow([timestamp, veh_id, cbr, snr])
 
 def adjust_mcs_based_on_snr(snr):
-    if 0 <= snr < 5:
-        return 0
-    elif 5 <= snr < 10:
-        return 1
-    elif 10 <= snr < 15:
-        return 2
-    elif 15 <= snr < 20:
-        return 3
-    elif 20 <= snr < 25:
-        return 4
-    elif 25 <= snr < 30:
-        return 5
-    elif 30 <= snr < 35:
-        return 6
-    elif 35 <= snr < 40:
-        return 7
-    elif 40 <= snr < 45:
-        return 8
-    elif 45 <= snr < 50:
-        return 9
-    elif snr >= 50:
-        return 10
-    else:
-        return 0
+    thresholds = range(5, 60, 5)  # [5, 10, 15, ..., 55]
+    for mcs, threshold in enumerate(thresholds):
+        if snr < threshold:
+            return mcs
+    return 0
+
 
 logging.basicConfig(level=logging.INFO)
 
@@ -142,8 +124,8 @@ while True:
     responses = {}
     
     for veh_id, vehicle_data in batch_data.items():
-        current_power = max(min(vehicle_data['transmissionPower'], 30.0), 1.0)
-        current_beacon = max(min(vehicle_data['beaconRate'], 20.0), 1.0)
+        current_power = max(min(vehicle_data['transmissionPower'], 33.0), 20.0)
+        current_beacon = max(min(vehicle_data['beaconRate'], 20.0), 10.0)
         cbr = max(min(vehicle_data['CBR'], 1.0), 0.0)
         snr = max(min(vehicle_data['SINR'], 50.0), 1.0)
         mcs = max(min(vehicle_data['MCS'], 10), 0)
@@ -157,7 +139,7 @@ while True:
         action = agent.select_action(state)
 
         # normalized actions
-        new_power = (action[0] + 1) / 2 * (30 - 10) + 10
+        new_power = (action[0] + 1) / 2 * (33 - 20) + 20
         new_beacon = (action[1] + 1) / 2 * (20 - 10) + 10
         
         action_float = tuple(map(float, [new_power, new_beacon]))

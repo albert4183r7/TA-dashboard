@@ -1,5 +1,4 @@
-file_fcd: fcd-output-250m-45-vehicle-500second.xml
-enable_rl: True
+file_fcd: fcd-input.xml
+enable_rl: False
 algoritma: SAC
-mode: Training
-Train per batch
+mode: Baseline
