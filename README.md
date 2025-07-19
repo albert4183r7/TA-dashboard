@@ -115,3 +115,4 @@ We are glad to hear your contributions. Please contact the author for details.
    - Institution: Bandung Institute of Technology
  
 ## SOP Developers
+You can view the SOP Developers document [here](SOP_GIT.pdf).
