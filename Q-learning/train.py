@@ -251,8 +251,17 @@ class QLearningServerBatch:
                     prev_states[vid], prev_actions[vid] = current_state, action
 
                     delta_power, delta_beacon = ACTION_SPACE[action]
-                    new_power = max(POWER_BINS[0], min(current_state[0] + delta_power, POWER_BINS[-1]))
-                    new_beacon = max(BEACON_BINS[0], min(current_state[1] + delta_beacon, BEACON_BINS[-1]))
+                    # Tentukan batasan clip
+                    POWER_MIN, POWER_MAX = 20, 33
+                    BEACON_MIN, BEACON_MAX = 10, 20
+
+                    # Hitung nilai baru berdasarkan aksi inkremental
+                    new_power_candidate = current_state[0] + delta_power
+                    new_beacon_candidate = current_state[1] + delta_beacon
+
+                    # Gunakan np.clip untuk memaksa nilai berada dalam rentang
+                    new_power = np.clip(new_power_candidate, POWER_MIN, POWER_MAX)
+                    new_beacon = np.clip(new_beacon_candidate, BEACON_MIN, BEACON_MAX)
                     
                     responses[vid] = {
                         "transmissionPower": float(new_power),
