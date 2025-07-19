@@ -103,10 +103,16 @@ Make sure no firewall or port conflict exists. Confirm the server is running.
 - Incorrect Path Error:
 Adjust cwd parameter when calling subprocess.run() in app.py if file locations differ.
 
+## Contribution
+We are glad to hear your contributions. Please contact the author for details.
+
 ## 👨‍💻 Author & Contact
 - Developed as part of academic research on vehicular communication systems.
 - For inquiries, suggestions, or collaboration:
    - Name: Albert
    - Email: albertlie8338@gmail.com
    - GitHub: github.com/albert4183r7
-   - Institution: Bandung Institute of Technologu
+   - Institution: Bandung Institute of Technology
+ 
+## SOP Developers
+You can view the SOP Developers document [here](SOP_GIT.pdf).
